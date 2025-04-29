@@ -1,0 +1,34 @@
+@startuml
+title Estrutura de Pacotes do Sistema MeAUpet
+
+package "br.ifg.meaupet.modelo" {
+    class Animal
+    class Cachorro
+    class Gato
+    class Adotante
+    Animal <|-- Cachorro
+    Animal <|-- Gato
+}
+
+package "br.ifg.meaupet.dados" {
+    class RepositorioAnimal
+    class LeitorDeArquivo
+}
+
+package "br.ifg.meaupet.controle" {
+    class ControladorAdocao
+}
+
+package "br.ifg.meaupet.visao" {
+    class TelaPrincipal
+    class TelaCadastro
+}
+
+RepositorioAnimal --> Animal : acessa
+LeitorDeArquivo --> Animal : carrega
+ControladorAdocao --> RepositorioAnimal : gerencia
+ControladorAdocao --> Animal : processa
+TelaPrincipal --> ControladorAdocao : usa
+TelaCadastro --> ControladorAdocao : envia dados
+
+@enduml

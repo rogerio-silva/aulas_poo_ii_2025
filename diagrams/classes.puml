@@ -1,0 +1,65 @@
+@startuml MeAuPet
+
+class Pessoa {
+  - nome: String
+  - email: String
+  + getNome(): String
+  + getEmail(): String
+}
+
+class Adotante {
+  - telefone: String
+}
+
+class Funcionario {
+  - cargo: String
+}
+
+Pessoa <|-- Adotante
+Pessoa <|-- Funcionario
+
+class Animal {
+  - nome: String
+  - especie: String
+  - idade: int
+  - adotado: boolean
+  + adotar(): void
+}
+
+class Cachorro {
+  - raca: String
+}
+
+class Gato {
+  - corOlhos: String
+}
+
+class Coelho {
+  - peso: double
+}
+
+Animal <|-- Cachorro
+Animal <|-- Gato
+Animal <|-- Coelho
+
+class Adocao {
+  - animal: Animal
+  - adotante: Adotante
+  - data: LocalDate
+  + confirmarAdocao(): void
+}
+
+class ONG {
+  - nome: String
+  - listaAnimais: List<Animal>
+  - listaAdotantes: List<Adotante>
+  + listarDisponiveis(): List<Animal>
+  + registrarAdocao(adocao: Adocao): void
+}
+
+Adotante "1" -- "0..*" Adocao
+Animal "1" -- "0..1" Adocao
+ONG "1" o-- "0..*" Animal
+ONG "1" o-- "0..*" Adotante
+
+@enduml
