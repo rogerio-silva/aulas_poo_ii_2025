@@ -1,50 +1,103 @@
 @startuml MeAuPet
 
 class Pessoa {
-  - nome: String
-  - email: String
-  + getNome(): String
-  + getEmail(): String
+    - id: int
+    - nome: String
+    - idade: int
+    - email: String
+    - cpf: String
+    - telefone: String
+    + getNome(): String
+    + setNome(nome: String): void
+    + getIdade(): int
+    + setIdade(idade: int): void
+    + getEmail(): String
+    + setEmail(email: String): void
+    + getCpf(): String
+    + setCpf(cpf: String): void
+    + getTelefone(): String
+    + setTelefone(telefone: String): void
 }
 
-class Adotante {
-  - telefone: String
+class Tutor {
+    - endereco: String
+    + getEndereco(): String
+    + setEndereco(endereco: String): void
 }
 
 class Funcionario {
-  - cargo: String
+    - cargo: String
+    - salario: double
+    + getCargo(): String
+    + setCargo(cargo: String): void
+    + getSalario(): double
+    + setSalario(salario: double): void
 }
 
-Pessoa <|-- Adotante
+Pessoa <|-- Tutor
 Pessoa <|-- Funcionario
 
 class Animal {
-  - nome: String
-  - especie: String
-  - idade: int
-  - adotado: boolean
-  + adotar(): void
+    - id: long
+    - nome: String
+    - especie: String
+    - idade: int
+    - adotado: boolean
+    + getNome(): String
+    + setNome(nome: String): void
+    + getEspecie(): String
+    + setEspecie(especie: String): void
+    + getIdade(): int
+    + setIdade(idade: int): void
+    + isAdotado(): boolean
+    + adotar(): void
 }
 
 class Cachorro {
-  - raca: String
+    - raca: String
+    - porte: Porte
+    + getRaca(): String
+    + setRaca(raca: String): void
+    + getPorte(): Porte}
+    + setPorte(porte: Porte): void
+}
+
+enum Porte{
+    Mini
+    Pequeno
+    Medio
+    Grande
 }
 
 class Gato {
-  - corOlhos: String
+    - corOlhos: String
+    - corPelagem: String
+    + getCorOlhos(): String
+    + setCorOlhos(corOlhos: String): void
+    + getCorPelagem(): String
+    + setCorPelagem(corPelagem: String): void
 }
 
 class Coelho {
-  - peso: double
+    - peso: double
+    - corOlhos: String
+    - corPelagem: String
+    + getPeso(): double
+    + setPeso(peso: double): void
+    + getCorOlhos(): String
+    + setCorOlhos(corOlhos: String): void
+    + getCorPelagem(): String
+    + setCorPelagem(corPelagem: String): void
 }
 
 Animal <|-- Cachorro
 Animal <|-- Gato
 Animal <|-- Coelho
+Cachorro <|-- Porte
 
 class Adocao {
   - animal: Animal
-  - adotante: Adotante
+  - tutor: Tutor
   - data: LocalDate
   + confirmarAdocao(): void
 }
@@ -52,14 +105,14 @@ class Adocao {
 class ONG {
   - nome: String
   - listaAnimais: List<Animal>
-  - listaAdotantes: List<Adotante>
+  - listaTutores: List<Tutor>
   + listarDisponiveis(): List<Animal>
   + registrarAdocao(adocao: Adocao): void
 }
 
-Adotante "1" -- "0..*" Adocao
+Tutor "1" -- "0..*" Adocao
 Animal "1" -- "0..1" Adocao
 ONG "1" o-- "0..*" Animal
-ONG "1" o-- "0..*" Adotante
+ONG "1" o-- "0..*" Tutor
 
 @enduml
